@@ -726,6 +726,12 @@ NSUInteger HMSegmentedControlNoSegment = (NSUInteger)-1;
         
         CGFloat x = widthToStartOfSelectedIndex + ((widthToEndOfSelectedSegment - widthToStartOfSelectedIndex) / 2) - (self.selectionIndicatorHeight/2);
         return CGRectMake(x - (self.selectionIndicatorHeight / 2), indicatorYOffset, self.selectionIndicatorHeight * 2, self.selectionIndicatorHeight);
+    } else if (self.selectionStyle == HMSegmentedControlSelectionStyleCustom) {
+        CGFloat widthToEndOfSelectedSegment = (self.segmentWidth * self.selectedSegmentIndex) + self.segmentWidth;
+        CGFloat widthToStartOfSelectedIndex = (self.segmentWidth * self.selectedSegmentIndex);
+        CGFloat x = ((widthToEndOfSelectedSegment - widthToStartOfSelectedIndex) / 2) + (widthToStartOfSelectedIndex - sectionWidth / 2);
+        CGFloat edgeLeft = (sectionWidth - self.selectionIndicatorEdgeInsets.right - 10) * 0.5;
+        return CGRectMake(x + self.selectionIndicatorEdgeInsets.left + edgeLeft, indicatorYOffset - 5, 10, self.selectionIndicatorHeight);
     } else {
         if (self.selectionStyle == HMSegmentedControlSelectionStyleTextWidthStripe &&
             sectionWidth <= self.segmentWidth &&
